@@ -9,6 +9,9 @@ import ItemForm from '@/components/ItemForm.vue';
             <h1>Hello Word</h1>
             <ItemForm/>
         </div>
+        <div>
+          <UsuariosList/>
+        </div>
     </main>
 </template>
 
