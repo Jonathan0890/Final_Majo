@@ -25,10 +25,47 @@ const router = createRouter({
       component: () => import('../views/NosotrosView.vue'),
     },
     {
+      path: '/contact',
+      name: 'contact',
+      component: () => import('../views/ContactView.vue'),
+    },{
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/RegisterView.vue'),
+    },{
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue'),
+    },{
+      path: '/forgot-password',
+      name: 'forgot-password',
+      component: () => import('../views/ForgotPasswordView.vue'),
+    },{
+      path: '/transaction-categories',
+      name: 'transaction-categories',
+      component: () => import('../views/TransactionCategoriesView.vue'),
+    },{
+      path: '/register-transaction',
+      name: 'register-transaction',
+      component: () => import('../views/TransactionRegisterView.vue'),
+    },{
+      path: '/summary',
+      name: 'summary',
+      component: () => import('../views/SummaryView.vue'),
+    },{
+      path: '/savings-goals',
+      name: 'savings-gols',
+      component: () => import('../views/SavingsGoalsView.vue'),
+    },{
+      path: '/reminders',
+      name: 'reminders',
+      component: () => import('../views/RemindersView.vue'),
+    },
+    {
       path: '/pruebas',
       name: 'pruebas',
       component: () => import('../views/MUsuarios.vue'),
-    },
+    }
   ],
 })
 

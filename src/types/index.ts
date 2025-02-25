@@ -1,7 +1,21 @@
-export interface Note {
-  id?: number;
-  title: string;
-  content: string;
-  tags: string[];
-  date?: string;
+export interface Transaction {
+  id: number;
+  amount: number;
+  category: string;
+  description: string;
+  date: string;
+}
+
+export interface SavingsGoal {
+  id: number;
+  name: string;
+  targetAmount: number;
+  currentAmount: number;
+  deadline: string;
+}
+
+export interface Reminder {
+  id: number;
+  description: string;
+  date: string;
 }
