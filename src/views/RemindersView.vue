@@ -1,9 +1,13 @@
 <template>
-  <div class="bg-light-gray min-h-screen p-6">
+  <main class="bg-light-gray min-h-screen p-6">
     <h1 class="text-navy-blue text-3xl font-bold mb-8">Recordatorios</h1>
-    <ReminderForm @reminder-added="handleReminderAdded" @reminder-updated="handleReminderUpdated" />
+    <ReminderForm
+      @reminder-added="handleReminderAdded"
+      @reminder-updated="handleReminderUpdated"
+      :reminder-to-edit="reminderToEdit"
+    />
 
-    <div class="mt-8">
+    <section class="mt-8">
       <h2 class="text-light-blue text-2xl font-semibold mb-6">Tus Recordatorios</h2>
       <ul>
         <li
@@ -11,19 +15,22 @@
           :key="reminder.id"
           class="bg-white p-6 rounded-lg shadow-md mb-6"
         >
-          <p class="text-dark-gray text-lg">{{ reminder.description }} - <span class="font-semibold">{{ reminder.date }}</span></p>
+          <p class="text-dark-gray text-lg">
+            {{ reminder.description }} - <span class="font-semibold">{{ reminder.date }}</span>
+          </p>
           <div class="mt-4 flex justify-end">
             <button
               @click="editReminder(reminder)"
               class="text-light-blue hover:underline font-medium"
+              aria-label="Editar recordatorio"
             >
               Editar
             </button>
           </div>
         </li>
       </ul>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script lang="ts">
@@ -38,6 +45,7 @@ export default defineComponent({
   },
   setup() {
     const reminders = ref<Reminder[]>([]);
+    const reminderToEdit = ref<Reminder | null>(null);
 
     const handleReminderAdded = (reminder: Reminder) => {
       reminders.value.push(reminder);
@@ -48,15 +56,16 @@ export default defineComponent({
       if (index !== -1) {
         reminders.value[index] = updatedReminder;
       }
+      reminderToEdit.value = null;
     };
 
     const editReminder = (reminder: Reminder) => {
-      // Aquí puedes pasar el recordatorio a la forma para editar
       reminderToEdit.value = reminder;
     };
 
     return {
       reminders,
+      reminderToEdit,
       handleReminderAdded,
       handleReminderUpdated,
       editReminder,
@@ -64,3 +73,18 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+/* Estilos específicos para este componente */
+.text-navy-blue {
+  color: #1a365d;
+}
+
+.text-light-blue {
+  color: #3182ce;
+}
+
+.text-dark-gray {
+  color: #4a5568;
+}
+</style>

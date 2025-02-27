@@ -19,3 +19,9 @@ export interface Reminder {
   description: string;
   date: string;
 }
+
+export interface Reminder {
+  id: number;
+  description: string;
+  date: string; // Puedes usar un formato de fecha como 'YYYY-MM-DD'
+}

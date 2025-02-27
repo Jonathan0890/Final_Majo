@@ -1,36 +1,26 @@
 <template>
   <div>
-    <UsuarioList :usuarios="usuarios" />
+    <h1>Gestión de Usuarios</h1>
+    <button @click="usuarioStore.fetchUsuarios()" class="bg-blue-500 text-white p-2 rounded">
+      Cargar Usuarios
+    </button>
+    <p v-if="usuarioStore.loading">Cargando usuarios...</p>
+    <p v-if="usuarioStore.error" class="text-red-500">{{ usuarioStore.error }}</p>
+    <ul v-if="!usuarioStore.loading && usuarioStore.usuarios.length">
+      <li v-for="usuario in usuarioStore.usuarios" :key="usuario.pkUsuario">
+        {{ usuario.nombre }} - {{ usuario.email }}
+      </li>
+    </ul>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
-import api from '@/services/api';
-import UsuarioList from '@/components/UsuarioList.vue';
-import { Usuario } from '@/types/usuario';
+<script setup lang="ts">
+import { onMounted } from 'vue';
+import { useUsuarioStore } from '@/stores/usuarioStore';
 
-export default defineComponent({
-  name: 'UsuariosView',
-  components: {
-    UsuarioList,
-  },
-  setup() {
-    const usuarios = ref<Usuario[]>([]);
+const usuarioStore = useUsuarioStore();
 
-    onMounted(async () => {
-      try {
-        const response = await api.getUsuarios();
-        console.log('Usuarios desde API:', response); // 🔹 Depuración
-        usuarios.value = response;
-      } catch (error) {
-        console.error('Error al cargar usuarios:', error);
-      }
-    });
-
-    return {
-      usuarios,
-    };
-  },
+onMounted(() => {
+  usuarioStore.fetchUsuarios();
 });
 </script>
